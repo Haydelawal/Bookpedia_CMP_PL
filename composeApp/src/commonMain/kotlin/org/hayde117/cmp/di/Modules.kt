@@ -4,6 +4,8 @@ import org.hayde117.cmp.book.data.network.KtorRemoteBookDataSource
 import org.hayde117.cmp.book.data.network.RemoteBookDataSource
 import org.hayde117.cmp.book.data.repository.DefaultBookRepository
 import org.hayde117.cmp.book.domain.BookRepository
+import org.hayde117.cmp.book.presentation.SelectedBookViewModel
+import org.hayde117.cmp.book.presentation.book_detail.BookDetailViewModel
 import org.hayde117.cmp.book.presentation.book_list.BookListViewModel
 import org.hayde117.cmp.core.data.HttpClientFactory
 import org.koin.core.module.Module
@@ -20,5 +22,7 @@ val sharedModule = module {
     singleOf(::DefaultBookRepository).bind<BookRepository>()
 
 
-    viewModelOf(::BookListViewModel )
+    viewModelOf(::BookListViewModel)
+    viewModelOf(::BookDetailViewModel)
+    viewModelOf(::SelectedBookViewModel)
 }
