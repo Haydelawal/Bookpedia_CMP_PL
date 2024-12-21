@@ -7,12 +7,15 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.hayde117.cmp.book.domain.Book
@@ -30,7 +33,18 @@ class BookListViewModel(
     private var observeFavoriteJob: Job? = null
 
     private val _state = MutableStateFlow(BookListState())
-    val state = _state.asStateFlow()
+    val state = _state
+        .onStart {
+            if (cachedBooks.isEmpty()){
+                observeSearchQuery()
+            }
+        }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000L),
+            initialValue = _state.value
+        )
+       // .asStateFlow()
 
 
     fun onAction(action: BookListAction){
