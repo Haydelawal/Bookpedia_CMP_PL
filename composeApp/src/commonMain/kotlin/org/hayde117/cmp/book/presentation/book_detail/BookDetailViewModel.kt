@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.hayde117.cmp.app.Route
 import org.hayde117.cmp.book.domain.BookRepository
+import org.hayde117.cmp.core.domain.onSuccess
 
 class BookDetailViewModel(
     private val bookRepository: BookRepository,
@@ -25,7 +26,7 @@ class BookDetailViewModel(
     private val _state = MutableStateFlow(BookDetailState())
     val state = _state
         .onStart {
-//            fetchBookDescription()
+            fetchBookDescription()
 //            observeFavoriteStatus()
         }
         .stateIn(
@@ -67,18 +68,18 @@ class BookDetailViewModel(
 //            .launchIn(viewModelScope)
 //    }
 //
-//    private fun fetchBookDescription() {
-//        viewModelScope.launch {
-//            bookRepository
-//                .getBookDescription(bookId)
-//                .onSuccess { description ->
-//                    _state.update { it.copy(
-//                        book = it.book?.copy(
-//                            description = description
-//                        ),
-//                        isLoading = false
-//                    ) }
-//                }
-//        }
-//    }
+    private fun fetchBookDescription() {
+        viewModelScope.launch {
+            bookRepository
+                .getBookDescription(bookId)
+                .onSuccess { description ->
+                    _state.update { it.copy(
+                        book = it.book?.copy(
+                            description = description
+                        ),
+                        isLoading = false
+                    ) }
+                }
+        }
+    }
 }

@@ -37,13 +37,6 @@ import bookpedia_cmp_pl.composeapp.generated.resources.favorites
 import bookpedia_cmp_pl.composeapp.generated.resources.no_favorite_books
 import bookpedia_cmp_pl.composeapp.generated.resources.no_search_results
 import bookpedia_cmp_pl.composeapp.generated.resources.search_results
-//import cmp_bookpedia.composeapp.generated.resources.Res
-//import cmp_bookpedia.composeapp.generated.resources.favorites
-//import cmp_bookpedia.composeapp.generated.resources.no_favorite_books
-//import cmp_bookpedia.composeapp.generated.resources.no_search_results
-//import cmp_bookpedia.composeapp.generated.resources.search_results
-//import com.plcoding.bookpedia.book.presentation.book_list.components.BookList
-//import com.plcoding.bookpedia.book.presentation.book_list.components.BookSearchBar
 import org.hayde117.cmp.book.domain.Book
 import org.hayde117.cmp.book.presentation.book_list.components.BookList
 import org.hayde117.cmp.book.presentation.book_list.components.BookSearchBar
