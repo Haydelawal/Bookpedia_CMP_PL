@@ -27,7 +27,7 @@ class BookDetailViewModel(
     val state = _state
         .onStart {
             fetchBookDescription()
-//            observeFavoriteStatus()
+            observeFavoriteStatus()
         }
         .stateIn(
             viewModelScope,
@@ -42,32 +42,32 @@ class BookDetailViewModel(
                     book = action.book
                 ) }
             }
-//            is BookDetailAction.OnFavoriteClick -> {
-//                viewModelScope.launch {
-//                    if(state.value.isFavorite) {
-//                        bookRepository.deleteFromFavorites(bookId)
-//                    } else {
-//                        state.value.book?.let { book ->
-//                            bookRepository.markAsFavorite(book)
-//                        }
-//                    }
-//                }
-//            }
+            is BookDetailAction.OnFavoriteClick -> {
+                viewModelScope.launch {
+                    if(state.value.isFavorite) {
+                        bookRepository.deleteFromFavorites(bookId)
+                    } else {
+                        state.value.book?.let { book ->
+                            bookRepository.markAsFavorite(book)
+                        }
+                    }
+                }
+            }
             else -> Unit
         }
     }
 
-//    private fun observeFavoriteStatus() {
-//        bookRepository
-//            .isBookFavorite(bookId)
-//            .onEach { isFavorite ->
-//                _state.update { it.copy(
-//                    isFavorite = isFavorite
-//                ) }
-//            }
-//            .launchIn(viewModelScope)
-//    }
-//
+    private fun observeFavoriteStatus() {
+        bookRepository
+            .isBookFavorite(bookId)
+            .onEach { isFavorite ->
+                _state.update { it.copy(
+                    isFavorite = isFavorite
+                ) }
+            }
+            .launchIn(viewModelScope)
+    }
+
     private fun fetchBookDescription() {
         viewModelScope.launch {
             bookRepository

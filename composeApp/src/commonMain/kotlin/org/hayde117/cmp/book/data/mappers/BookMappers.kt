@@ -1,5 +1,6 @@
 package org.hayde117.cmp.book.data.mappers
 
+import org.hayde117.cmp.book.data.database.BookEntity
 import org.hayde117.cmp.book.data.dto.SearchedBookDto
 import org.hayde117.cmp.book.domain.Book
 
@@ -20,5 +21,38 @@ fun SearchedBookDto.toBook(): Book {
         ratingCount = ratingsCount,
         numPages = numPagesMedian,
         numEditions = numEditions ?: 0
+    )
+}
+
+
+fun Book.toBookEntity(): BookEntity {
+    return BookEntity(
+        id = id,
+        title = title,
+        description = description,
+        imageUrl = imageUrl,
+        languages = languages,
+        authors = authors,
+        firstPublishYear = firstPublishYear,
+        ratingsAverage = averageRating,
+        ratingsCount = ratingCount,
+        numPagesMedian = numPages,
+        numEditions = numEditions
+    )
+}
+
+fun BookEntity.toBook(): Book {
+    return Book(
+        id = id,
+        title = title,
+        description = description,
+        imageUrl = imageUrl,
+        languages = languages,
+        authors = authors,
+        firstPublishYear = firstPublishYear,
+        averageRating = ratingsAverage,
+        ratingCount = ratingsCount,
+        numPages = numPagesMedian,
+        numEditions = numEditions
     )
 }
