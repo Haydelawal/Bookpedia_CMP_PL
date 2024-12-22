@@ -21,6 +21,7 @@ import org.hayde117.cmp.book.presentation.book_detail.BookDetailScreenRoot
 import org.hayde117.cmp.book.presentation.book_detail.BookDetailViewModel
 import org.hayde117.cmp.book.presentation.book_list.BookListScreenRoot
 import org.hayde117.cmp.book.presentation.book_list.BookListViewModel
+import org.hayde117.cmp.navigation.MainNavigation
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -28,98 +29,10 @@ import org.koin.compose.viewmodel.koinViewModel
 @Preview
 fun App() {
     MaterialTheme {
+        // declaring navController
         val navController = rememberNavController()
 
-        /** phillip did this but i feel the `BookGraph` is redundant
-         * and i would still create a navigation package,
-         * extract the nav logic to be inside a nav graph file
-         * and just call the nav graph file here for separation of concerns and readability **/
-
-//        NavHost(
-//            navController = navController,
-//            startDestination = Route.BookGraph
-//        ) {
-//            navigation<Route.BookGraph>(
-//                startDestination = Route.BookList
-//            ) {
-
-        NavHost(
-            navController = navController,
-            startDestination = Route.BookGraph
-        ) {
-            navigation<Route.BookGraph>(
-                startDestination = Route.BookList
-            ) {
-
-
-                composable<Route.BookList>(
-                    exitTransition = { slideOutHorizontally() },
-                    popEnterTransition = { slideInHorizontally() }
-                ) {
-                    val viewModel = koinViewModel<BookListViewModel>()
-                    val selectedBookViewModel =
-                        it.sharedKoinViewModel<SelectedBookViewModel>(navController)
-
-                    // reverts the selected book to null when navigating back from BookDetail screen
-                    LaunchedEffect(true) {
-                        selectedBookViewModel.onSelectBook(null)
-                    }
-
-                    BookListScreenRoot(
-                        viewModel = viewModel,
-                        onBookClick = { book ->
-                            selectedBookViewModel.onSelectBook(book)
-                            navController.navigate(
-                                Route.BookDetail(book.id)
-                            )
-                        }
-                    )
-                }
-
-
-                composable<Route.BookDetail>(
-                    enterTransition = { slideInHorizontally { initialOffset ->
-                        initialOffset
-                    } },
-                    exitTransition = { slideOutHorizontally { initialOffset ->
-                        initialOffset
-                    } }
-                ) {
-                    val selectedBookViewModel =
-                        it.sharedKoinViewModel<SelectedBookViewModel>(navController)
-                    val viewModel = koinViewModel<BookDetailViewModel>()
-                    val selectedBook by selectedBookViewModel.selectedBook.collectAsStateWithLifecycle()
-
-                    LaunchedEffect(selectedBook) {
-                        selectedBook?.let {
-                            viewModel.onAction(BookDetailAction.OnSelectedBookChange(it))
-                        }
-                    }
-
-                    BookDetailScreenRoot(
-                        viewModel = viewModel,
-                        onBackClick = {
-                            navController.navigateUp()
-                        }
-                    )
-                }
-            }
-        }
-
+        // navigation entry point
+        MainNavigation(navController)
     }
-}
-
-/** This is used for shared view models hereby
- *  scoping the vm lifecycle to the two screens (nav graph) rather than one screen**/
-@Composable
-private inline fun <reified T: ViewModel> NavBackStackEntry.sharedKoinViewModel(
-    navController: NavController
-): T {
-    val navGraphRoute = destination.parent?.route ?: return koinViewModel<T>()
-    val parentEntry = remember(this) {
-        navController.getBackStackEntry(navGraphRoute)
-    }
-    return koinViewModel(
-        viewModelStoreOwner = parentEntry
-    )
 }

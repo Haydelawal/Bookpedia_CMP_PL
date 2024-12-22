@@ -1,9 +1,10 @@
-package org.hayde117.cmp.app
+package org.hayde117.cmp.navigation
 
 import kotlinx.serialization.Serializable
 
 sealed interface Route {
 
+    // removed because it is redundant
     @Serializable
     data object BookGraph: Route
 

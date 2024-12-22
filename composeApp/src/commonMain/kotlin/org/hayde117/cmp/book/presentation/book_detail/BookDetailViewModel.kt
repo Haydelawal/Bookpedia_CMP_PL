@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import org.hayde117.cmp.app.Route
+import org.hayde117.cmp.navigation.Route
 import org.hayde117.cmp.book.domain.BookRepository
 import org.hayde117.cmp.core.domain.onSuccess
 
