@@ -18,11 +18,20 @@ This project is a valuable resource for developers seeking to use a remote and l
 Bookpedia follows the latest Material 3 guidelines for a visually appealing and a consistent UI. Below are 3 screenshots of the app across ios, android and desktop environments.
 
 <p align="center">
-<img img width="200" height="400" src="./readme-assets/screenshots/android_image.png"> &nbsp;&nbsp;&nbsp;&nbsp;
-<img img width="200" height="400" src="./readme-assets/screenshots/desktop_image.png"> &nbsp;&nbsp;&nbsp;&nbsp;   
-<img img width="200" height="400" src="./readme-assets/screenshots/ios_image.png"> &nbsp;&nbsp;&nbsp;&nbsp; 
+<b><i>Android</i></b>
+  <img width="400" height="300" src="./readme-assets/screenshots/android_image.png">
+</p>
+<p align="center">
+  <b><i>Desktop</i></b>
+  <img width="400" height="300" src="./readme-assets/screenshots/desktop_image.png">
+</p>
+<p align="center">
+  <b><i>IOS</i></b>
+
+  <img width="400" height="300" src="./readme-assets/screenshots/ios_image.png">
 
 </p>
+
 
 * `/composeApp` is for code that will be shared across your Compose Multiplatform applications.
   It contains several subfolders:
