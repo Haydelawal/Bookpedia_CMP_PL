@@ -167,13 +167,6 @@ private fun BookDetailScreen(
                 )
                 if(state.isLoading) {
                     CircularProgressIndicator()
-//                    Box(
-//                        modifier = Modifier
-//                            .fillMaxWidth()
-//                            .weight(1f),
-//                        contentAlignment = Alignment.Center
-//                    ) {
-//                    }
                 } else {
                     Text(
                         text = if(state.book.description.isNullOrBlank()) {

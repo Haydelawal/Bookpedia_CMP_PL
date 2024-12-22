@@ -1,4 +1,4 @@
-package com.plcoding.bookpedia.di
+package org.hayde117.cmp.di
 
 import org.hayde117.cmp.di.platformModule
 import org.hayde117.cmp.di.sharedModule
